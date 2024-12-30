@@ -44,3 +44,35 @@ define Device/tplink_vr200v
   SUPPORTED_DEVICES += VR200v
 endef
 TARGET_DEVICES += tplink_vr200v
+define Device/TDW8970-16M
+  $(Device/dsa-migration)
+  $(Device/lantiqTpLink)
+  DEVICE_PROFILE := TDW8970-16M
+  BOARD_ID := TD-W8970v1-16m
+  IMAGE_SIZE := 15808k
+  DEVICE_TITLE := TP-LINK TD-W8970 16M Flash
+  DEVICE_PACKAGES:= kmod-ath9k kmod-owl-loader wpad-mini kmod-usb-dwc2 kmod-usb-ledtrig-usbport
+  DEVICE_MODEL := TD-W8970v1-16m
+  DEVICE_VARIANT := v1
+  TPLINK_FLASHLAYOUT := 16Mltq-8Mflsh
+  TPLINK_HWID := 0x89700001
+  TPLINK_HWREV := 1
+
+endef
+TARGET_DEVICES +=TDW8970-16M 
+define Device/TDW8980-16M
+  $(Device/dsa-migration)
+  $(Device/lantiqTpLink)
+  DEVICE_PROFILE := TDW8980-16M
+  BOARD_ID := TD-W8980v1-16m
+  IMAGE_SIZE := 15808k
+  DEVICE_TITLE := TP-LINK TD-W8980 16M Flash
+  DEVICE_PACKAGES:= kmod-ath9k kmod-owl-loader wpad-mini kmod-usb-dwc2 kmod-usb-ledtrig-usbport
+  DEVICE_MODEL := TD-W8980v1-16m
+  DEVICE_VARIANT := v1
+  TPLINK_FLASHLAYOUT := 16Mltq-8Mflsh
+  TPLINK_HWID := 0x89800001
+  TPLINK_HWREV := 14
+
+endef
+TARGET_DEVICES +=TDW8980-16M 
