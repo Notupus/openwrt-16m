@@ -1,0 +1,78 @@
+#include "vr9_tplink_tdw89x0.dtsi"
+
+/ {
+       compatible = "tplink,tdw8980-16m", "tplink,tdw89x0", "lantiq,xway", "lantiq,vr9";
+       model = "TP-LINK TD-W8980 16M";
+};
+
+&leds {
+       wifi2 {
+               label = "green:wlan5ghz";
+               gpios = <&gpio 24 GPIO_ACTIVE_LOW>;
+       };
+};
+
+&gpio {
+       state_default: pinmux {
+               pci_rst {
+                       lantiq,pins = "io21";
+                       lantiq,output = <1>;
+                       lantiq,open-drain;
+               };
+       };
+};
+
+&spi {
+        status = "okay";
+
+        flash@4 {
+                partitions {
+                        partition@20000 {
+                                reg = <0x20000 0xfa0000>;
+                                label = "firmware";
+                        };
+
+                        partition@7c0000 {
+                                reg = <0xfc0000 0x10000>;
+                                label = "config";
+                                read-only;
+                        };
+
+                        partition@7d0000 {
+                                reg = <0xfd0000 0x30000>;
+                                label = "boardconfig";
+                                read-only;
+
+                                boardconfig: nvmem-layout {
+                                        compatible = "fixed-layout";
+                                        #address-cells = <1>;
+                                        #size-cells = <1>;
+
+                                        macaddr_ath9k_cal_f100: macaddr@f100 {
+                                                compatible = "mac-base";
+                                                reg = <0xf100 0x6>;
+                                                #nvmem-cell-cells = <1>;
+                                        };
+                                };
+                        };
+                };
+        };
+};
+
+&pci0 {
+       status = "okay";
+
+       reset-gpios = <&gpio 21 GPIO_ACTIVE_LOW>;
+};
+
+&boardconfig {
+       cal_boardconfig_21000: calibration@21000 {
+               reg = <0x21000 0x3d8>;
+       };
+};
+
+&ath9k {
+       compatible = "pci168c,002e";
+       nvmem-cells = <&macaddr_ath9k_cal_f100 2>, <&cal_boardconfig_21000>;
+       nvmem-cell-names = "mac-address", "calibration";
+};
