@@ -33,6 +33,7 @@ case "$FIRMWARE" in
  				;;
  			*)
 				caldata_die "board $board is not supported yet"
+				ath9k_eeprom_extract "boardconfig" 135168 0
 				;;
 		esac
 		;;
