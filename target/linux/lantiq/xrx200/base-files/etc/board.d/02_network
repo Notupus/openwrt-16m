@@ -42,6 +42,7 @@ lantiq_setup_interfaces()
 	avm,fritz7490|\
 	avm,fritz7490-micron|\
 	buffalo,wbmr-300hpd|\
+	tplink,tdw8980-16m|\
 	tplink,vr200|\
 	tplink,vr200v)
 		ucidef_set_interface_lan "lan1 lan2 lan3 lan4"
@@ -139,6 +140,9 @@ lantiq_setup_macs()
 	tplink,vr200|\
 	tplink,vr200v)
 		wan_mac=$(macaddr_add "$(mtd_get_mac_binary romfile 0xf100)" 1)
+		;;
+	tplink,tdw8980-16m)
+		wan_mac=$(macaddr_add "$(mtd_get_mac_binary boardconfig 0xf100)" 1)
 		;;
 	esac
 

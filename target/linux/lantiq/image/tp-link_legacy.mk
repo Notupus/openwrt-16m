@@ -44,16 +44,3 @@ define Device/tplink_tdw8980
   SUPPORTED_DEVICES += TDW8980
 endef
 TARGET_DEVICES += tplink_tdw8980
-define Device/tplink_tdw8980-16m
-  $(Device/dsa-migration)
-  $(Device/lantiqTpLink)
-  DEVICE_MODEL := TD-W8980-16M
-  DEVICE_VARIANT := v1
-  TPLINK_FLASHLAYOUT := 16Mltq-8Mflsh
-  TPLINK_HWID := 0x89800001
-  TPLINK_HWREV := 14
-  IMAGE_SIZE := 15872k
-  DEVICE_PACKAGES:= kmod-ath9k kmod-owl-loader wpad-basic-mbedtls kmod-usb-dwc2 kmod-usb-ledtrig-usbport
-  SUPPORTED_DEVICES += TDW8980-16M
-endef
-TARGET_DEVICES += tplink_tdw8980-16m
